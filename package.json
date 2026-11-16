@@ -1,0 +1,36 @@
+{
+  "name": "@wokwi/elements-rs",
+  "version": "0.1.0",
+  "description": "Rust/WASM reimplementation of Wokwi Elements",
+  "type": "module",
+  "main": "./web/index.js",
+  "exports": {
+    ".": "./web/index.js"
+  },
+  "files": [
+    "web/index.js",
+    "web/pkg/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "build:debug": "bash scripts/build-debug.sh",
+    "dev": "bash scripts/build-debug.sh && node scripts/serve.mjs",
+    "dev:release": "bash scripts/build.sh && node scripts/serve.mjs",
+    "dev:serve": "node scripts/serve.mjs",
+    "test": "cargo test --offline",
+    "test:smoke": "node tests/browser-smoke.cjs",
+    "test:visual": "node tests/browser-visual-parity.cjs",
+    "test:property": "node tests/browser-property-parity.cjs",
+    "test:api": "node tests/browser-api-parity.cjs",
+    "test:all": "cargo test --offline && node tests/browser-smoke.cjs && node tests/browser-visual-parity.cjs && node tests/browser-property-parity.cjs && node tests/browser-api-parity.cjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

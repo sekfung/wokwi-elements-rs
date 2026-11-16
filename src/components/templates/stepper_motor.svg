@@ -1,0 +1,27 @@
+<svg width="{{svgWidth}}mm" height="{{svgHeight}}mm" version="1.1" viewBox="0 0 {{viewWidth}} {{viewHeight}}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="frame-gradient" x1="{{frameGradientX1}}" x2="{{frameGradientX2}}" y1="{{frameSize}}" y2="{{frameSize}}" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#666" offset="0"></stop><stop stop-color="#fff" offset="1"></stop>
+    </linearGradient>
+    <linearGradient id="shaft-gradient" x1="0" x2="0" y1="-5" y2="5" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9d9d9d" offset="0"></stop><stop stop-color="#9d9d9d" stop-opacity="0" offset="1"></stop>
+    </linearGradient>
+    <linearGradient id="body-gradient" x1="{{bodyGradientX1}}" x2="{{bodyGradientX2}}" y1="{{frameSize}}" y2="{{frameSize}}" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9d9d9d" offset="0"></stop><stop stop-color="#fdfafa" offset=".29501"></stop><stop offset="1" stop-color="#2a2a2a"></stop>
+    </linearGradient>
+  </defs>
+  <g transform="translate(1,1)"><g transform="scale(3.78)">
+    <path id="pin" transform="translate({{halfFrameMinus375}} {{frameSize}})" fill="#9f9f9f" d="m 0 0 c .5 0 .5 0 .5 .5 v 4.55 c -.5 .5 -.5 .5 -1 0 v -4.5 c 0 -.5 0 -.5 .5 -.5"></path>
+    <use xlink:href="#pin" x="2.54"></use><use xlink:href="#pin" x="5.08"></use><use xlink:href="#pin" x="7.62"></use>
+    <g stroke-linecap="round" stroke-linejoin="round">
+      <rect width="{{frameSize}}" height="{{frameSize}}" rx="{{cornerRadius}}" ry="{{cornerRadius}}" fill="url(#frame-gradient)" stroke="#000" stroke-width=".3245"></rect>
+      <circle cx="{{cornerOffset}}" cy="{{cornerOffset}}" r="{{outerHoleRadius}}" fill="#666"></circle><circle cx="{{cornerOffset}}" cy="{{cornerOffset}}" r="{{innerHoleRadius}}" fill="#e6e6e6"></circle>
+      <circle cx="{{frameSizeMinusCorner}}" cy="{{cornerOffset}}" r="{{outerHoleRadius}}" fill="#666"></circle><circle cx="{{frameSizeMinusCorner}}" cy="{{cornerOffset}}" r="{{innerHoleRadius}}" fill="#e6e6e6"></circle>
+      <circle cx="{{cornerOffset}}" cy="{{frameSizeMinusCorner}}" r="{{outerHoleRadius}}" fill="#666"></circle><circle cx="{{cornerOffset}}" cy="{{frameSizeMinusCorner}}" r="{{innerHoleRadius}}" fill="#e6e6e6"></circle>
+      <circle cx="{{frameSizeMinusCorner}}" cy="{{frameSizeMinusCorner}}" r="{{outerHoleRadius}}" fill="#666"></circle><circle cx="{{frameSizeMinusCorner}}" cy="{{frameSizeMinusCorner}}" r="{{innerHoleRadius}}" fill="#e6e6e6"></circle>
+    </g>
+    <circle cx="{{halfFrame}}" cy="{{halfFrame}}" r="{{bodyRadius}}" fill="#868686" fill-opacity=".89602" opacity=".73" stroke="url(#body-gradient)" stroke-width="1.41429"></circle>
+    <g><path id="arrow-path" transform="rotate({{angle}}, {{halfFrame}},{{halfFrame}}) translate({{halfFrame}} {{halfFrame}})" fill="{{arrow}}" d="m 0 0 l -{{shaftRadius}} 0 l {{shaftRadius}} -{{arrowTip}} l {{shaftRadius}} {{arrowTip}} z"></path><path id="shaft-path" transform="translate({{halfFrame}}, {{halfFrame}}) rotate({{angle}}) translate(0, 0)" d="m -{{halfShaft}} -{{rOff}} a {{shaftRadius}} {{shaftRadius}} 0 1 0 {{shaftRadius}} 0 z" fill="#4d4d4d" stroke="url(#shaft-gradient)" stroke-width=".57968"></path></g>
+    <text font-family="arial" font-size="14.667px" text-align="center" text-anchor="middle"><tspan x="{{halfFrame}}" y="{{valueY}}" font-size="{{textSize}}px">{{value}}</tspan><tspan x="{{halfFrame}}" y="{{unitsY}}" font-size="{{unitsTextSize}}px">{{units}}</tspan></text>
+  </g></g>
+</svg>

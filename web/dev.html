@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wokwi Elements Rust — Dev Gallery</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f4f0;
+        --panel: #ffffff;
+        --panel-2: #f8f8f5;
+        --text: #20221f;
+        --muted: #6c7069;
+        --line: #d9dbd5;
+        --accent: #126b5d;
+        --accent-soft: #dceee9;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      body.dark {
+        color-scheme: dark;
+        --bg: #151714;
+        --panel: #1f221f;
+        --panel-2: #252925;
+        --text: #eef0eb;
+        --muted: #a3a89f;
+        --line: #373c36;
+        --accent: #78d8c7;
+        --accent-soft: #253d38;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      button, input, select, textarea { font: inherit; }
+      button {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--text);
+        padding: 7px 11px;
+        cursor: pointer;
+      }
+      button:hover { border-color: var(--accent); }
+      button.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+      input, select, textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--panel);
+        color: var(--text);
+        padding: 7px 9px;
+      }
+      textarea { min-height: 72px; resize: vertical; font-family: var(--mono); font-size: 12px; }
+      .app { display: grid; grid-template-columns: 260px minmax(0, 1fr) 340px; height: 100%; }
+      .sidebar, .inspector {
+        background: var(--panel);
+        border-right: 1px solid var(--line);
+        overflow: auto;
+      }
+      .inspector { border-right: 0; border-left: 1px solid var(--line); }
+      .brand { padding: 18px 16px 12px; border-bottom: 1px solid var(--line); }
+      .brand h1 { font-size: 16px; line-height: 1.2; margin: 0 0 4px; }
+      .brand p { margin: 0; color: var(--muted); font-size: 12px; }
+      .search { padding: 12px; border-bottom: 1px solid var(--line); }
+      .catalog { padding: 8px; display: grid; gap: 3px; }
+      .catalog button {
+        width: 100%; text-align: left; border-color: transparent; background: transparent;
+        padding: 8px 9px; font-family: var(--mono); font-size: 12px;
+      }
+      .catalog button:hover { background: var(--panel-2); }
+      .catalog button.active { background: var(--accent-soft); border-color: var(--accent); color: var(--text); }
+      .story-heading { padding: 12px 16px 4px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+      .stories { padding: 4px 8px 16px; display: grid; gap: 4px; }
+      .stories button { width: 100%; text-align: left; border-color: transparent; background: transparent; padding: 7px 9px; }
+      .stories button:hover { background: var(--panel-2); }
+      .stories button.active { background: var(--accent-soft); border-color: var(--accent); }
+      .workspace { min-width: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); }
+      .toolbar {
+        display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+        padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--panel);
+      }
+      .toolbar .tag { font: 600 14px/1 var(--mono); margin-right: auto; }
+      .stage-wrap { position: relative; overflow: auto; }
+      .stage {
+        min-height: 100%; display: grid; place-items: center; padding: 56px;
+        background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--muted) 25%, transparent) 1px, transparent 0);
+        background-size: 18px 18px;
+      }
+      .stage.plain { background-image: none; }
+      #preview { transform-origin: center; padding: 24px; }
+      .inspector section { padding: 14px 16px; border-bottom: 1px solid var(--line); }
+      .inspector h2 { margin: 0 0 10px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+      .control { margin-bottom: 11px; }
+      .control label { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 5px; font-size: 12px; }
+      .control label span:last-child { color: var(--muted); font-family: var(--mono); font-size: 10px; }
+      .control input[type="checkbox"] { width: auto; accent-color: var(--accent); }
+      .events, .pins, .snippet {
+        margin: 0; padding: 9px; border-radius: 8px; background: var(--panel-2);
+        border: 1px solid var(--line); max-height: 220px; overflow: auto;
+        font: 11px/1.5 var(--mono); white-space: pre-wrap; word-break: break-word;
+      }
+      .hint { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+      .empty { color: var(--muted); font-family: var(--mono); }
+      @media (max-width: 1100px) {
+        .app { grid-template-columns: 220px minmax(0, 1fr); }
+        .inspector { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); max-height: 42vh; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <h1>Wokwi Elements Rust</h1>
+          <p>50-component differential playground</p>
+        </div>
+        <div class="search"><input id="search" type="search" placeholder="Filter components…" autocomplete="off" /></div>
+        <nav id="catalog" class="catalog" aria-label="Component catalog"></nav>
+        <div class="story-heading">Stories</div>
+        <nav id="stories" class="stories" aria-label="Component stories"></nav>
+      </aside>
+      <main class="workspace">
+        <div class="toolbar">
+          <span id="current-tag" class="tag">Select a component</span>
+          <label><input id="grid" type="checkbox" checked /> grid</label>
+          <label>zoom <select id="zoom"><option>0.5</option><option>0.75</option><option selected>1</option><option>1.5</option><option>2</option><option>3</option></select></label>
+          <button id="reset">Reset</button>
+          <button id="theme">Theme</button>
+        </div>
+        <div class="stage-wrap"><div id="stage" class="stage"><div id="preview" class="empty">Choose a component from the left.</div></div></div>
+      </main>
+      <aside class="inspector">
+        <section><h2>Properties</h2><p class="hint">Values are forwarded to the same public property API as the upstream package.</p><div id="controls"></div></section>
+        <section><h2>Pin Info</h2><pre id="pins" class="pins">—</pre></section>
+        <section><h2>Events</h2><div><button id="clear-events">Clear</button></div><pre id="events" class="events">—</pre></section>
+        <section><h2>Snippet</h2><pre id="snippet" class="snippet">—</pre></section>
+      </aside>
+    </div>
+    <script type="module" src="./dev.js"></script>
+  </body>
+</html>

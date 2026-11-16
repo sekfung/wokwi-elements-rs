@@ -1,0 +1,13 @@
+<svg width="{{width}}mm" height="{{height}}mm" version="1.1" viewBox="0 0 {{width}} {{height}}" font-family="sans-serif" font-size="8.2px" text-anchor="middle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-on-keydown="keydown" data-on-keyup="keyup">
+  <defs>
+    <pattern id="wires" width="2.54" height="8" patternUnits="userSpaceOnUse"><rect width="2.54" height="8" fill="#eee"></rect><rect x="0.77" width="1" height="6" fill="#d9d5bc"></rect><circle cx="1.27" cy="6" r="0.75" fill="#d9d5bc"></circle><rect x="0.52" y="6" width="1.5" height="2" fill="#d9d5bc"></rect></pattern>
+    <pattern id="wires-marks" width="2.54" height="8" patternUnits="userSpaceOnUse"><rect x="0.52" y="6" width="1.5" height="2" fill="#746d41"></rect></pattern>
+    <pattern id="pins-female" width="2.54" height="2.54" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="2.54" height="2.54" fill="#333"></rect><rect x="1.079" y="0.896" width="0.762" height="0.762" style="fill: #191919"></rect><path transform="translate(1.079, 1.658) rotate(180 0 0)" d="m 0 0 v 0.762 l 0.433,0.433 c 0.046,-0.046 0.074,-0.109 0.074,-0.179 v -1.27 c 0,-0.070 -0.028,-0.133 -0.074,-0.179 z" style="opacity: 0.25"></path><path transform="translate(1.841, 1.658) rotate(90 0 0)" d="m 0 0 v 0.762 l 0.433,0.433 c 0.046,-0.046 0.074,-0.109 0.074,-0.179 v -1.27 c 0,-0.070 -0.028,-0.133 -0.074,-0.179 z" style="opacity: 0.3; fill: #fff"></path><path transform="translate(1.841, 0.896)" d="m 0 0 v 0.762 l 0.433,0.433 c 0.046,-0.046 0.074,-0.109 0.074,-0.179 v -1.27 c 0,-0.070 -0.028,-0.133 -0.074,-0.179 z" style="opacity: 0.15; fill: #fff"></path><path transform="translate(1.079, 0.896) rotate(270 0 0)" d="m 0 0 v 0.762 l 0.433,0.433 c 0.046,-0.046 0.074,-0.109 0.074,-0.179 v -1.27 c 0,-0.070 -0.028,-0.133 -0.074,-0.179 z" style="opacity: 0.35"></path></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="0" stdDeviation="0.5" flood-color="#ffff99"></feDropShadow></filter>
+  </defs>
+  <rect x="0" y="0" width="{{width}}" height="76" rx="5" ry="5" fill="#454449"></rect>
+  <rect x="2.78" y="3.25" width="{{innerWidth}}" height="68.6" rx="3.5" ry="3.5" fill="none" stroke="#b1b5b9" stroke-width="1"></rect>
+  {{connector}}
+  <g fill="#4e90d7">{{blueKeys}}</g>
+  <g fill="#e94541">{{redKeys}}</g>
+</svg>

@@ -1,0 +1,14 @@
+<svg width="{{width}}mm" height="{{height}}mm" version="1.1" viewBox="{{viewBox}}" style="font-size: 1.5px; font-family: monospace" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="characters" width="3.55" height="5.95" patternUnits="userSpaceOnUse" x="12.45" y="12.55"><rect width="2.95" height="5.55" fill-opacity="0.05"></rect></pattern>
+    <pattern id="pins" width="2.54" height="3.255" patternUnits="userSpaceOnUse" y="1.1"><path fill="#92926d" d="M0,0.55c0,0 0.21,-0.52 0.87,-0.52 0.67,0 0.81,0.51 0.81,0.51v1.81h-1.869z"></path><circle r="0.45" cx="0.827" cy="0.9" color="black"></circle></pattern>
+  </defs>
+  <rect width="{{width}}" height="{{height}}" fill="#087f45"></rect>
+  <rect x="4.95" y="5.7" width="{{panelWidthPlus15}}" height="{{panelHeightPlus137}}"></rect>
+  <rect x="7.55" y="10.3" width="{{panelWidthPlus98}}" height="{{panelHeightPlus45}}" rx="1.5" ry="1.5" fill="{{background}}"></rect>
+  <rect x="7.55" y="10.3" width="{{panelWidthPlus98}}" height="{{panelHeightPlus45}}" rx="1.5" ry="1.5" opacity="{{darken}}"></rect>
+  {{pins}}
+  <rect x="12.45" y="12.55" width="{{panelWidth}}" height="{{panelHeight}}" fill="url(#characters)"></rect>
+  <path d="{{textPath}}" transform="translate(12.45, 12.55)" fill="{{color}}"></path>
+  {{cursor}}
+</svg>
