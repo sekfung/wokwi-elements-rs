@@ -30,6 +30,30 @@ bash scripts/build.sh
 The browser entry point is `web/index.js`; generated WASM files are written to
 `web/pkg/` and are intentionally excluded from source control.
 
+### Native Boardless artwork pack
+
+Build the import-free native guest with the pinned Rust toolchain and lockfile.
+
+```bash
+rustup target add --toolchain 1.95.0 wasm32-unknown-unknown
+cargo +1.95.0 build --locked --release --target wasm32-unknown-unknown --features native-pack
+cargo +1.95.0 test --locked --features native-pack
+```
+
+The artifact is `target/wasm32-unknown-unknown/release/wokwi_elements_rs.wasm`.
+It exports memory and Artwork ABI 1. The native host writes UTF-8 JSON into
+the buffer from `element_input(len)`, then reads the result descriptor from
+`element_call()`. The descriptor encodes the pointer in the high 32 bits and
+the byte length in the low 32 bits. Zero reports an invalid request. Copy the
+bytes before calling another export. Requests are limited to 64 KiB and
+responses to 4 MiB.
+
+- `{"op":"catalog"}` returns entries with `tag` and `default_state`.
+- `{"op":"render","tag":"wokwi-led","state":{}}` returns `html`, `styles`, and
+  `pins`.
+
+Build without `native-pack` for the browser bindings.
+
 ### Interactive component gallery
 
 ```bash

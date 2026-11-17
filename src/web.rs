@@ -1,27 +1,32 @@
 use serde_json::{json, Value};
+#[cfg(not(feature = "native-pack"))]
 use wasm_bindgen::prelude::*;
 
 use crate::{contract, events, pin_info, render};
 
-#[wasm_bindgen]
+#[cfg_attr(not(feature = "native-pack"), wasm_bindgen)]
 pub fn install_debug_hook() {
-    #[cfg(feature = "debug-hook")]
+    #[cfg(all(
+        feature = "debug-hook",
+        not(feature = "native-pack"),
+        target_arch = "wasm32"
+    ))]
     console_error_panic_hook::set_once();
 }
 
-#[wasm_bindgen]
+#[cfg_attr(not(feature = "native-pack"), wasm_bindgen)]
 pub fn component_contracts() -> String {
     contract::contracts_json().to_owned()
 }
 
-#[wasm_bindgen]
+#[cfg_attr(not(feature = "native-pack"), wasm_bindgen)]
 pub fn default_state_json(tag: &str) -> String {
     contract::default_state(tag)
         .unwrap_or_else(|| json!({}))
         .to_string()
 }
 
-#[wasm_bindgen]
+#[cfg_attr(not(feature = "native-pack"), wasm_bindgen)]
 pub fn render_component(tag: &str, state_json: &str) -> String {
     let state: serde_json::Value = serde_json::from_str(state_json).unwrap_or(Value::Null);
     match render(tag, &state) {
@@ -34,7 +39,7 @@ pub fn render_component(tag: &str, state_json: &str) -> String {
     }
 }
 
-#[wasm_bindgen]
+#[cfg_attr(not(feature = "native-pack"), wasm_bindgen)]
 pub fn pin_info_json(tag: &str, state_json: &str) -> String {
     let state: serde_json::Value = serde_json::from_str(state_json).unwrap_or(Value::Null);
     pin_info(tag, &state)
@@ -42,7 +47,8 @@ pub fn pin_info_json(tag: &str, state_json: &str) -> String {
         .unwrap_or_else(|| "null".to_owned())
 }
 
-#[wasm_bindgen]
+#[cfg_attr(not(feature = "native-pack"), wasm_bindgen)]
+#[cfg_attr(feature = "native-pack", allow(dead_code))]
 pub fn dispatch_action(tag: &str, state_json: &str, action: &str, payload_json: &str) -> String {
     let mut state: serde_json::Value =
         serde_json::from_str(state_json).unwrap_or_else(|_| json!({}));
@@ -53,7 +59,7 @@ pub fn dispatch_action(tag: &str, state_json: &str, action: &str, payload_json: 
         .unwrap_or_else(|| "null".into())
 }
 
-#[wasm_bindgen]
+#[cfg_attr(not(feature = "native-pack"), wasm_bindgen)]
 pub fn invoke_method(tag: &str, state_json: &str, method: &str, args_json: &str) -> String {
     let mut state: serde_json::Value =
         serde_json::from_str(state_json).unwrap_or_else(|_| json!({}));

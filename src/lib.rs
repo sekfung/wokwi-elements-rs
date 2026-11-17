@@ -4,6 +4,8 @@ mod contract;
 mod events;
 mod generated;
 mod metadata;
+#[cfg(feature = "native-pack")]
+mod native;
 mod pins;
 mod render;
 mod util;
